@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F-Location — Location de voitures à Lyon</title>
+    <meta
+      name="description"
+      content="F-Location, catalogue de voitures de location à Lyon. Choisissez votre véhicule et contactez-nous par téléphone, WhatsApp ou email pour réserver."
+    />
+    <link rel="canonical" href="https://www.f-location.example/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="F-Location — Location de voitures à Lyon" />
+    <meta
+      property="og:description"
+      content="Catalogue de voitures de location à Lyon. Choisissez, contactez-nous, réservez."
+    />
+    <meta property="og:locale" content="fr_FR" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AutoRental",
+        "name": "F-Location",
+        "areaServed": "Lyon",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "12 rue de la République",
+          "addressLocality": "Lyon",
+          "postalCode": "69002",
+          "addressCountry": "FR"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

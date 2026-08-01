@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Sert notre 404.html personnalisée pour toute URL non trouvée.
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

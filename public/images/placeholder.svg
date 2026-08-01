@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#0f1013"/>
+  <g fill="none" stroke="#8b9098" stroke-width="3">
+    <path d="M60 190 L90 140 Q100 130 115 130 L260 130 Q275 130 285 140 L320 190" />
+    <rect x="45" y="190" width="290" height="45" rx="10" />
+    <circle cx="100" cy="235" r="22" />
+    <circle cx="280" cy="235" r="22" />
+  </g>
+  <text x="200" y="270" font-family="monospace" font-size="12" fill="#8b9098" text-anchor="middle">
+    PHOTO A VENIR
+  </text>
+</svg>

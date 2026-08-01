@@ -1,0 +1,67 @@
+[
+  {
+    "id": "bmw-320d",
+    "brand": "BMW",
+    "model": "320d",
+    "year": 2022,
+    "category": "Berline",
+    "pricePerDay": 65,
+    "fuel": "Diesel",
+    "transmission": "Automatique",
+    "seats": 5,
+    "photo": "/images/bmw-320d.jpg",
+    "available": true
+  },
+  {
+    "id": "audi-a3",
+    "brand": "Audi",
+    "model": "A3 Sportback",
+    "year": 2023,
+    "category": "Compacte",
+    "pricePerDay": 55,
+    "fuel": "Essence",
+    "transmission": "Manuelle",
+    "seats": 5,
+    "photo": "/images/audi-a3.jpg",
+    "available": true
+  },
+  {
+    "id": "range-rover-evoque",
+    "brand": "Range Rover",
+    "model": "Evoque",
+    "year": 2021,
+    "category": "SUV",
+    "pricePerDay": 95,
+    "fuel": "Diesel",
+    "transmission": "Automatique",
+    "seats": 5,
+    "photo": "/images/range-rover-evoque.jpg",
+    "available": false
+  },
+  {
+    "id": "mini-cooper",
+    "brand": "Mini",
+    "model": "Cooper S",
+    "year": 2022,
+    "category": "Citadine",
+    "pricePerDay": 45,
+    "fuel": "Essence",
+    "transmission": "Manuelle",
+    "seats": 4,
+    "photo": "/images/mini-cooper.jpg",
+    "available": true
+  },
+  {
+    "id": "mercedes-classe-c",
+    "brand": "Mercedes",
+    "model": "Classe C",
+    "year": 2023,
+    "category": "Berline",
+    "pricePerDay": 85,
+    "fuel": "Hybride",
+    "transmission": "Automatique",
+    "seats": 5,
+    "photo": "/images/mercedes-classe-c.jpg",
+    "available": true
+  }
+]
