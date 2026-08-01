@@ -28,12 +28,23 @@ export async function loadCars(): Promise<Car[]> {
     return localCars as Car[];
   }
 
+  const cacheBust = Date.now();
+
   try {
     const response = GOOGLE_SHEET_API_URL
-      ? await fetch(GOOGLE_SHEET_API_URL)
-      : await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-          headers: ACCESS_KEY ? { "X-Access-Key": ACCESS_KEY } : undefined,
-        });
+      ? await fetch(
+          `${GOOGLE_SHEET_API_URL}${GOOGLE_SHEET_API_URL.includes("?") ? "&" : "?"}cacheBust=${cacheBust}`,
+          {
+            cache: "no-store",
+          },
+        )
+      : await fetch(
+          `https://api.jsonbin.io/v3/b/${BIN_ID}/latest?cacheBust=${cacheBust}`,
+          {
+            cache: "no-store",
+            headers: ACCESS_KEY ? { "X-Access-Key": ACCESS_KEY } : undefined,
+          },
+        );
 
     if (!response.ok) {
       throw new Error(
