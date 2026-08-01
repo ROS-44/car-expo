@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.f-location.example/index.html</loc>
+    <loc>https://f-location.netlify.app/index.html</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.f-location.example/contact.html</loc>
+    <loc>https://f-location.netlify.app/contact.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+  <loc>https://f-location.netlify.app/mentions-legales.html</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.3</priority>
+</url>
 </urlset>

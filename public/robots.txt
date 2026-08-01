@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.f-location.example/sitemap.xml
+Sitemap: https://f-location.netlify.app/sitemap.xml

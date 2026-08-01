@@ -7,8 +7,6 @@ export function createFooter(): HTMLElement {
     <p>${AGENCY.name} — ${AGENCY.address}</p>
     <p>
       <a href="/mentions-legales.html">Mentions légales</a>
-      <span>•</span>
-      <a href="/404.html">404</a>
     </p>
     <p>&copy; ${new Date().getFullYear()} ${AGENCY.name}. Tous droits réservés.</p>
   `;
