@@ -10,7 +10,7 @@ coverage/
 
 # Environment files
 .env
-.env.*
+
 
 # OS and editor files
 .DS_Store
