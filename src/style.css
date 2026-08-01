@@ -451,24 +451,24 @@ a {
 .car-specs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.4rem;
+  gap: 0.45rem;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   color: var(--chrome);
 }
 
 .car-specs span {
   display: block;
   color: var(--chrome-dim);
-  font-size: 0.66rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.14rem;
 }
 
 .car-price {
   font-family: var(--font-mono);
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   font-weight: 600;
   color: var(--amber);
 }
@@ -692,17 +692,17 @@ a {
 
 .contact-card .label {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--chrome-dim);
-  margin: 0 0 0.15rem;
+  margin: 0 0 0.18rem;
 }
 
 .contact-card .value {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 .contact-address {
