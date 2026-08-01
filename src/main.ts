@@ -1,5 +1,5 @@
 import "./style.css";
-import type { Car } from "./types";
+import type { Car, CarWithGallery } from "./types";
 import { loadCars } from "./data/carsSource";
 import localCars from "./data/cars.json";
 import { createHeader } from "./components/header";
@@ -8,12 +8,13 @@ import { createFilters } from "./components/filters";
 import { createCarCard } from "./components/carCard";
 import { openModal } from "./components/carModal";
 import { createFooter } from "./components/footer";
+import { attachGalleries } from "./data/gallery";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 async function init(): Promise<void> {
-  const fallbackCars = localCars as Car[];
-  let currentCars = fallbackCars;
+  const fallbackCars = await attachGalleries(localCars as Car[]);
+  let currentCars: CarWithGallery[] = fallbackCars;
 
   app.innerHTML = "";
   app.appendChild(createHeader("home"));
@@ -34,7 +35,7 @@ async function init(): Promise<void> {
 
   app.appendChild(createFooter());
 
-  function renderCars(list: Car[]): void {
+  function renderCars(list: CarWithGallery[]): void {
     grid.innerHTML = "";
     if (list.length === 0) {
       grid.innerHTML = `<p class="empty-state">Aucune voiture ne correspond à ce filtre pour le moment.</p>`;
@@ -45,7 +46,7 @@ async function init(): Promise<void> {
     });
   }
 
-  function renderFilters(list: Car[]): void {
+  function renderFilters(list: CarWithGallery[]): void {
     const categories = [...new Set(list.map((c) => c.category))];
     filtersZone.replaceChildren(
       createFilters(categories, (category) => {
@@ -63,7 +64,7 @@ async function init(): Promise<void> {
   try {
     const remoteCars = await loadCars();
     if (remoteCars.length > 0) {
-      currentCars = remoteCars;
+      currentCars = await attachGalleries(remoteCars);
       renderFilters(currentCars);
       renderCars(currentCars);
 

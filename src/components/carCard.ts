@@ -1,10 +1,10 @@
-import type { Car } from "../types";
+import type { CarWithGallery } from "../types";
 import { emailLink, phoneLink, whatsappLink } from "../data/contact";
 import { drawQRCode } from "./qrcode";
 
 export function createCarCard(
-  car: Car,
-  onOpenModal: (car: Car) => void
+  car: CarWithGallery,
+  onOpenModal: (car: CarWithGallery) => void,
 ): HTMLElement {
   const fullName = `${car.brand} ${car.model}`;
 
@@ -13,12 +13,18 @@ export function createCarCard(
   card.setAttribute("aria-label", fullName);
 
   const bookingLink = whatsappLink(fullName);
+  const cover = car.gallery[0] ?? "/images/placeholder.svg";
 
   card.innerHTML = `
     <div class="car-photo" role="button" tabindex="0" aria-label="Voir les détails de ${fullName}">
-      <img src="${car.photo}" alt="${fullName}" loading="lazy"
+      <img src="${cover}" alt="${fullName}" loading="lazy"
         onerror="this.src='/images/placeholder.svg'" />
       <span class="badge-year">${car.year}</span>
+      ${
+        car.gallery.length > 1
+          ? `<span class="badge-gallery">${car.gallery.length} photos</span>`
+          : ""
+      }
       ${!car.available ? `<div class="badge-unavailable">Indisponible</div>` : ""}
     </div>
 

@@ -1,7 +1,7 @@
-import type { Car } from "../types";
+import type { CarWithGallery } from "../types";
 import { AGENCY } from "../data/contact";
 
-export function createHero(cars: Car[]): HTMLElement {
+export function createHero(cars: CarWithGallery[]): HTMLElement {
   const section = document.createElement("section");
   section.className = "hero";
 
@@ -23,10 +23,10 @@ export function createHero(cars: Car[]): HTMLElement {
             .map(
               (car) => `
             <div class="hero-strip-item">
-              <img src="${car.photo}" alt="" loading="lazy" onerror="this.src='/images/placeholder.svg'" />
+              <img src="${car.gallery[0] ?? "/images/placeholder.svg"}" alt="" loading="lazy" onerror="this.src='/images/placeholder.svg'" />
               <span>${car.brand} ${car.model}</span>
             </div>
-          `
+          `,
             )
             .join("")}
         </div>
