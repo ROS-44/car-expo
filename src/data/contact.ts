@@ -2,10 +2,10 @@
 export const AGENCY = {
   name: "F-Location",
   city: "annemasse",
-  address: "je sais pas, 75010 annemasse",
-  phone: "+33600000000", // format international, sans espaces
+  address: "Annemasse 74100 haute savoie",
+  phone: "+33658155906 ", // format international, sans espaces
   whatsapp: "33600000000", // format international, sans le +
-  email: "contact@f-location.fr",
+  email: "Durmzrabia74@gmail.com",
   description:
     "Agence de location de voitures à annemasse. Un catalogue simple, des véhicules entretenus, une réponse rapide par téléphone, WhatsApp ou email.",
 };
