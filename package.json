@@ -9,11 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@types/qrcode": "^1.5.6",
     "typescript": "~6.0.2",
     "vite": "^6.0.0"
-  },
-  "dependencies": {
-    "qrcode": "^1.5.4"
   }
 }

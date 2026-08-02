@@ -1,6 +1,5 @@
 import type { CarWithGallery } from "../types";
 import { emailLink, phoneLink, whatsappLink } from "../data/contact";
-import { drawQRCode } from "./qrcode";
 
 export function createCarCard(
   car: CarWithGallery,
@@ -57,12 +56,6 @@ export function createCarCard(
           ${car.available ? "" : 'aria-disabled="true" tabindex="-1"'}>
           Appeler
         </a>
-        <button type="button" class="btn btn-qr" ${car.available ? "" : "disabled"}>QR code</button>
-      </div>
-
-      <div class="qr-panel">
-        <canvas></canvas>
-        <p>Scannez pour ouvrir<br />la conversation WhatsApp.</p>
       </div>
     </div>
   `;
@@ -74,19 +67,6 @@ export function createCarCard(
     if (e instanceof KeyboardEvent && (e.key === "Enter" || e.key === " ")) {
       e.preventDefault();
       open();
-    }
-  });
-
-  const qrButton = card.querySelector(".btn-qr") as HTMLButtonElement | null;
-  const qrPanel = card.querySelector(".qr-panel") as HTMLElement;
-  const canvas = card.querySelector("canvas") as HTMLCanvasElement;
-  let drawn = false;
-
-  qrButton?.addEventListener("click", async () => {
-    qrPanel.classList.toggle("open");
-    if (!drawn && qrPanel.classList.contains("open")) {
-      await drawQRCode(canvas, bookingLink);
-      drawn = true;
     }
   });
 

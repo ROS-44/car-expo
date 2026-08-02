@@ -545,35 +545,6 @@ a {
   pointer-events: none;
 }
 
-/* ---------- QR panel ---------- */
-
-.qr-panel {
-  display: none;
-  align-items: center;
-  gap: 0.8rem;
-  background: var(--paper);
-  border-radius: 3px;
-  padding: 0.7rem;
-  margin-top: 0.2rem;
-}
-
-.qr-panel.open {
-  display: flex;
-}
-
-.qr-panel canvas {
-  display: block;
-  border-radius: 2px;
-}
-
-.qr-panel p {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--asphalt);
-  line-height: 1.4;
-}
-
 /* ---------- Modal détail ---------- */
 
 .modal-overlay {

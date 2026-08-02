@@ -1,6 +1,5 @@
 import type { CarWithGallery } from "../types";
 import { emailLink, phoneLink, whatsappLink } from "../data/contact";
-import { drawQRCode } from "./qrcode";
 
 let overlay: HTMLElement | null = null;
 let currentGallery: string[] = [];
@@ -25,10 +24,6 @@ function createOverlay(): HTMLElement {
         <div class="car-specs"></div>
         <div class="car-price"></div>
         <div class="car-actions"></div>
-        <div class="qr-panel open">
-          <canvas></canvas>
-          <p>Scannez pour ouvrir<br />la conversation WhatsApp.</p>
-        </div>
       </div>
     </div>
   `;
@@ -111,7 +106,4 @@ export async function openModal(car: CarWithGallery): Promise<void> {
   `;
 
   overlay.classList.add("open");
-
-  const canvas = overlay.querySelector("canvas") as HTMLCanvasElement;
-  await drawQRCode(canvas, bookingLink);
 }
