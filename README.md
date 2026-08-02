@@ -1,4 +1,4 @@
-# F-Location — Catalogue de voitures
+# Aysallrentcar — Catalogue de voitures
 
 Site vitrine statique (Vite + TypeScript, sans backend). Deux pages : accueil (catalogue) et contact. Chaque voiture propose 3 façons de contacter (WhatsApp, Email, Téléphone) + un QR code généré à la volée.
 
@@ -24,7 +24,7 @@ npm run build
 
 Résultat dans `dist/` (contient `index.html` ET `contact.html`) — à héberger tel quel sur Netlify, Vercel, GitHub Pages ou Cloudflare Pages.
 
-Avant la mise en ligne, remplace `https://www.f-location.example` (placeholder) par ton vrai nom de domaine dans : `index.html`, `contact.html`, `public/robots.txt`, `public/sitemap.xml`.
+Avant la mise en ligne, remplace `https://www.aysallrentcar.example` (placeholder) par ton vrai nom de domaine dans : `index.html`, `contact.html`, `public/robots.txt`, `public/sitemap.xml`.
 
 ## Modifier les coordonnées de l'agence
 

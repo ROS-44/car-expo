@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://f-location.netlify.app/sitemap.xml
+Sitemap: https://aysallrentcar.netlify.app/sitemap.xml

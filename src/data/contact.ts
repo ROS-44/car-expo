@@ -1,6 +1,6 @@
 // Coordonnées de contact et informations de l'agence — à modifier ici une seule fois.
 export const AGENCY = {
-  name: "F-Location",
+  name: "Aysallrentcar",
   city: "annemasse",
   address: "Annemasse 74100 haute savoie",
   phone: "+33658155906 ", // format international, sans espaces
