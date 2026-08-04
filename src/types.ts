@@ -8,8 +8,6 @@ export interface Car {
   fuel: string;
   transmission: string;
   seats: number;
-  /** Repli optionnel si aucune photo n'est trouvée dans public/images/<id>/ */
-  photo?: string;
   available: boolean;
 }
 

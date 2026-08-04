@@ -1,55 +1,49 @@
 import type { Car, CarWithGallery } from "../types";
 
 /**
- * Découverte automatique des photos d'une voiture.
+ * Découverte des photos d'une voiture — résolue au moment du BUILD, pas au
+ * runtime.
  *
- * Convention : les photos vivent dans `public/images/<id-voiture>/`,
- * numérotées `1`, `2`, `3`... (extension libre : jpg, jpeg, png ou webp).
- * Le site sonde chaque numéro et se stoppe au premier absent.
+ * Convention : les photos vivent dans `src/assets/images/<id-voiture>/`,
+ * numérotées `1`, `2`, `3`... en `.webp`. Vite scanne ce dossier pendant la
+ * compilation via `import.meta.glob` et génère la liste exacte des fichiers
+ * réellement présents — il n'y a plus aucune requête réseau pour "deviner"
+ * si une photo existe, donc plus aucune dépendance au comportement de
+ * l'hébergeur (redirections, pages 404 personnalisées, etc.) qui causait
+ * des faux positifs.
+
  */
-const EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
-const MAX_PHOTOS_PER_CAR = 8;
 
-function tryLoadImage(src: string): Promise<string | null> {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(src);
-    img.onerror = () => resolve(null);
-    img.src = src;
-  });
-}
+const modules = import.meta.glob("/src/assets/images/*/*.webp", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
 
-async function resolveSlot(
-  carId: string,
-  index: number,
-): Promise<string | null> {
-  const attempts = EXTENSIONS.map((ext) =>
-    tryLoadImage(`/images/${carId}/${index}.${ext}`),
-  );
-  const results = await Promise.all(attempts);
-  return results.find((result) => result !== null) ?? null;
-}
+function buildGalleryIndex(): Record<string, string[]> {
+  const grouped: Record<string, { order: number; url: string }[]> = {};
 
-export async function resolveGallery(carId: string): Promise<string[]> {
-  const gallery: string[] = [];
-
-  for (let index = 1; index <= MAX_PHOTOS_PER_CAR; index += 1) {
-    const found = await resolveSlot(carId, index);
-    if (!found) break;
-    gallery.push(found);
+  for (const [path, url] of Object.entries(modules)) {
+    const match = path.match(/\/images\/([^/]+)\/(\d+)\.webp$/);
+    if (!match) continue;
+    const [, carId, orderStr] = match;
+    (grouped[carId] ??= []).push({ order: Number(orderStr), url });
   }
 
-  return gallery;
+  const index: Record<string, string[]> = {};
+  for (const [carId, photos] of Object.entries(grouped)) {
+    index[carId] = photos.sort((a, b) => a.order - b.order).map((p) => p.url);
+  }
+  return index;
 }
 
-export async function attachGalleries(cars: Car[]): Promise<CarWithGallery[]> {
-  return Promise.all(
-    cars.map(async (car) => {
-      const gallery = await resolveGallery(car.id);
-      if (gallery.length === 0 && car.photo) {
-        return { ...car, gallery: [car.photo] };
-      }
-      return { ...car, gallery };
-    }),
-  );
+const GALLERY_INDEX = buildGalleryIndex();
+
+export function resolveGallery(carId: string): string[] {
+  return GALLERY_INDEX[carId] ?? [];
+}
+
+/** Attache à chaque voiture la liste (déjà connue, triée) de ses photos. */
+export function attachGalleries(cars: Car[]): CarWithGallery[] {
+  return cars.map((car) => ({ ...car, gallery: resolveGallery(car.id) }));
 }

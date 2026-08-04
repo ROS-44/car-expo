@@ -1,21 +1,17 @@
 import "./style.css";
-import type { Car, CarWithGallery } from "./types";
+import type { CarWithGallery } from "./types";
 import { loadCars } from "./data/carsSource";
-import localCars from "./data/cars.json";
+import { attachGalleries } from "./data/gallery";
 import { createHeader } from "./components/header";
 import { createHero } from "./components/hero";
 import { createFilters } from "./components/filters";
 import { createCarCard } from "./components/carCard";
 import { openModal } from "./components/carModal";
 import { createFooter } from "./components/footer";
-import { attachGalleries } from "./data/gallery";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 async function init(): Promise<void> {
-  const fallbackCars = await attachGalleries(localCars as Car[]);
-  let currentCars: CarWithGallery[] = fallbackCars;
-
   app.innerHTML = "";
   app.appendChild(createHeader("home"));
 
@@ -23,17 +19,40 @@ async function init(): Promise<void> {
   main.id = "main-content";
   app.appendChild(main);
 
-  main.appendChild(createHero(currentCars));
+  // Le hero s'affiche tout de suite, sans attendre les données : l'utilisateur
+  // a quelque chose à lire pendant le chargement. Sans voitures, il n'a
+  // simplement pas de bandeau de photos défilantes (cars.json vide -> hero.ts
+  // masque cette section de lui-même).
+  main.appendChild(createHero([]));
+
+  const catalogueZone = document.createElement("div");
+  catalogueZone.innerHTML = `
+    <div class="loading-state" role="status" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
+      <p>Chargement du catalogue…</p>
+    </div>
+  `;
+  main.appendChild(catalogueZone);
+
+  app.appendChild(createFooter());
+
+  const rawCars = await loadCars();
+  const cars: CarWithGallery[] = attachGalleries(rawCars);
+
+  // Le hero est remplacé pour ajouter le bandeau de photos maintenant
+  // disponible (texte identique, juste le bandeau qui apparaît).
+  const heroNode = main.querySelector(".hero");
+  if (heroNode) main.replaceChild(createHero(cars), heroNode);
+
+  catalogueZone.innerHTML = "";
 
   const filtersZone = document.createElement("div");
-  main.appendChild(filtersZone);
+  catalogueZone.appendChild(filtersZone);
 
   const grid = document.createElement("div");
   grid.className = "cars-grid";
   grid.id = "catalogue";
-  main.appendChild(grid);
-
-  app.appendChild(createFooter());
+  catalogueZone.appendChild(grid);
 
   function renderCars(list: CarWithGallery[]): void {
     grid.innerHTML = "";
@@ -46,36 +65,17 @@ async function init(): Promise<void> {
     });
   }
 
-  function renderFilters(list: CarWithGallery[]): void {
-    const categories = [...new Set(list.map((c) => c.category))];
-    filtersZone.replaceChildren(
-      createFilters(categories, (category) => {
-        const filtered = category
-          ? list.filter((c) => c.category === category)
-          : list;
-        renderCars(filtered);
-      }),
-    );
-  }
+  const categories = [...new Set(cars.map((c) => c.category))];
+  filtersZone.appendChild(
+    createFilters(categories, (category) => {
+      const filtered = category
+        ? cars.filter((c) => c.category === category)
+        : cars;
+      renderCars(filtered);
+    }),
+  );
 
-  renderFilters(currentCars);
-  renderCars(currentCars);
-
-  try {
-    const remoteCars = await loadCars();
-    if (remoteCars.length > 0) {
-      currentCars = await attachGalleries(remoteCars);
-      renderFilters(currentCars);
-      renderCars(currentCars);
-
-      const heroNode = main.querySelector(".hero");
-      if (heroNode) {
-        main.replaceChild(createHero(currentCars), heroNode);
-      }
-    }
-  } catch {
-    // keep the already-rendered local catalogue if the remote fetch fails
-  }
+  renderCars(cars);
 }
 
 init();

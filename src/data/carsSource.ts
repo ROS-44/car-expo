@@ -36,12 +36,14 @@ export async function loadCars(): Promise<Car[]> {
           `${GOOGLE_SHEET_API_URL}${GOOGLE_SHEET_API_URL.includes("?") ? "&" : "?"}cacheBust=${cacheBust}`,
           {
             cache: "no-store",
+            signal: AbortSignal.timeout(8000),
           },
         )
       : await fetch(
           `https://api.jsonbin.io/v3/b/${BIN_ID}/latest?cacheBust=${cacheBust}`,
           {
             cache: "no-store",
+            signal: AbortSignal.timeout(8000),
             headers: ACCESS_KEY ? { "X-Access-Key": ACCESS_KEY } : undefined,
           },
         );
