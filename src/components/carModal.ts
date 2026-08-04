@@ -5,6 +5,11 @@ let overlay: HTMLElement | null = null;
 let currentGallery: string[] = [];
 let currentIndex = 0;
 
+function preload(src: string): void {
+  const img = new Image();
+  img.src = src;
+}
+
 function createOverlay(): HTMLElement {
   const el = document.createElement("div");
   el.className = "modal-overlay";
@@ -81,6 +86,7 @@ export async function openModal(car: CarWithGallery): Promise<void> {
 
   currentGallery =
     car.gallery.length > 0 ? car.gallery : ["/images/placeholder.svg"];
+  currentGallery.forEach(preload);
   showPhoto(0);
 
   (overlay.querySelector(".modal-gallery img") as HTMLImageElement).alt =
