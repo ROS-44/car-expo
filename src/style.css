@@ -14,6 +14,7 @@
   --font-display: "Oswald", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
+  --font-brand: "Manrope", "Oswald", sans-serif;
 
   --radius: 4px;
   --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
@@ -102,7 +103,93 @@ a {
   margin: 0 auto;
   padding: 0.9rem 1.5rem;
 }
+.logo {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-self: center;
+  font-family: var(--font-brand);
+  font-size: clamp(1.25rem, 2vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+}
 
+.logo-highlight,
+.logo-base,
+.logo-74 {
+  display: inline-block;
+}
+
+.logo-highlight {
+  background: linear-gradient(
+    120deg,
+    #fff1c7 0%,
+    var(--amber-bright) 30%,
+    #f9d07b 55%,
+    #fff3d2 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: logoGradient 5s ease-in-out infinite alternate;
+}
+
+.logo-base {
+  color: var(--paper);
+  background: linear-gradient(
+    120deg,
+    #f1f2f6 0%,
+    #dfe5ee 28%,
+    #e8b15f 60%,
+    #f1f2f6 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: logoGradient 6s ease-in-out infinite alternate;
+}
+
+.logo-74 {
+  margin-left: 0.08em;
+  color: var(--amber-bright);
+  font-weight: 900;
+  text-shadow: 0 0 18px rgba(242, 166, 61, 0.45);
+  animation:
+    logoFloat 2.8s ease-in-out infinite,
+    logoGradient 4s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+
+@keyframes logoGradient {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(1);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(1.15);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(1);
+  }
+}
+
+@keyframes logoFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
 .nav-link {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -129,20 +216,6 @@ a {
 .nav-link[aria-current="page"] {
   color: var(--amber);
   border-bottom-color: var(--amber);
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.15rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--paper);
-  justify-self: center;
 }
 
 .brand svg {
@@ -865,12 +938,14 @@ a {
   .nav-bar {
     padding: 0.7rem 1rem;
   }
+  .logo {
+    font-size: clamp(1rem, 4vw, 1.6rem);
+  }
+
   .nav-link {
     font-size: 0.68rem;
   }
-  .brand span {
-    display: none;
-  }
+
   .car-title {
     font-size: 1.12rem;
   }
