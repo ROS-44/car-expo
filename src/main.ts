@@ -1,3 +1,4 @@
+// src/main.ts
 import "./style.css";
 import type { CarWithGallery } from "./types";
 import { loadCars } from "./data/carsSource";
@@ -19,40 +20,28 @@ async function init(): Promise<void> {
   main.id = "main-content";
   app.appendChild(main);
 
-  // Le hero s'affiche tout de suite, sans attendre les données : l'utilisateur
-  // a quelque chose à lire pendant le chargement. Sans voitures, il n'a
-  // simplement pas de bandeau de photos défilantes (cars.json vide -> hero.ts
-  // masque cette section de lui-même).
-  main.appendChild(createHero([]));
-
-  const catalogueZone = document.createElement("div");
-  catalogueZone.innerHTML = `
+  main.innerHTML = `
     <div class="loading-state" role="status" aria-live="polite">
       <span class="spinner" aria-hidden="true"></span>
       <p>Chargement du catalogue…</p>
     </div>
   `;
-  main.appendChild(catalogueZone);
 
   app.appendChild(createFooter());
 
   const rawCars = await loadCars();
   const cars: CarWithGallery[] = attachGalleries(rawCars);
 
-  // Le hero est remplacé pour ajouter le bandeau de photos maintenant
-  // disponible (texte identique, juste le bandeau qui apparaît).
-  const heroNode = main.querySelector(".hero");
-  if (heroNode) main.replaceChild(createHero(cars), heroNode);
-
-  catalogueZone.innerHTML = "";
+  main.innerHTML = "";
+  main.appendChild(createHero(cars));
 
   const filtersZone = document.createElement("div");
-  catalogueZone.appendChild(filtersZone);
+  main.appendChild(filtersZone);
 
   const grid = document.createElement("div");
   grid.className = "cars-grid";
   grid.id = "catalogue";
-  catalogueZone.appendChild(grid);
+  main.appendChild(grid);
 
   function renderCars(list: CarWithGallery[]): void {
     grid.innerHTML = "";
