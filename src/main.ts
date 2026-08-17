@@ -1,14 +1,17 @@
-// src/main.ts
 import "./style.css";
 import type { CarWithGallery } from "./types";
 import { loadCars } from "./data/carsSource";
 import { attachGalleries } from "./data/gallery";
 import { createHeader } from "./components/header";
-import { createHero } from "./components/hero";
+import { createHero, updateHeroStrip } from "./components/hero";
 import { createFilters } from "./components/filters";
 import { createCarCard } from "./components/carCard";
-import { openModal } from "./components/carModal";
 import { createFooter } from "./components/footer";
+
+async function handleOpenModal(car: CarWithGallery): Promise<void> {
+  const { openModal } = await import("./components/carModal");
+  openModal(car);
+}
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
@@ -20,28 +23,38 @@ async function init(): Promise<void> {
   main.id = "main-content";
   app.appendChild(main);
 
-  main.innerHTML = `
+  // Le hero (texte + bandeau, hauteur déjà réservée par CSS) s'affiche
+  // tout de suite : l'utilisateur a quelque chose à lire pendant que le
+  // catalogue charge. Seule la zone catalogue montre un spinner.
+  const heroSection = createHero([]);
+  main.appendChild(heroSection);
+
+  const catalogueZone = document.createElement("div");
+  catalogueZone.innerHTML = `
     <div class="loading-state" role="status" aria-live="polite">
       <span class="spinner" aria-hidden="true"></span>
       <p>Chargement du catalogue…</p>
     </div>
   `;
+  main.appendChild(catalogueZone);
 
   app.appendChild(createFooter());
 
   const rawCars = await loadCars();
   const cars: CarWithGallery[] = attachGalleries(rawCars);
 
-  main.innerHTML = "";
-  main.appendChild(createHero(cars));
+  // Remplit juste le bandeau déjà présent dans le hero, ne le recrée pas.
+  updateHeroStrip(heroSection, cars);
+
+  catalogueZone.innerHTML = "";
 
   const filtersZone = document.createElement("div");
-  main.appendChild(filtersZone);
+  catalogueZone.appendChild(filtersZone);
 
   const grid = document.createElement("div");
   grid.className = "cars-grid";
   grid.id = "catalogue";
-  main.appendChild(grid);
+  catalogueZone.appendChild(grid);
 
   function renderCars(list: CarWithGallery[]): void {
     grid.innerHTML = "";
@@ -50,7 +63,7 @@ async function init(): Promise<void> {
       return;
     }
     list.forEach((car) => {
-      grid.appendChild(createCarCard(car, openModal));
+      grid.appendChild(createCarCard(car, handleOpenModal));
     });
   }
 
