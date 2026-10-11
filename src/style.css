@@ -339,6 +339,147 @@ a {
   }
 }
 
+/* ---------- Slider d'infos pratiques ---------- */
+
+.info-slider {
+  width: calc(100% - 2rem);
+  max-width: 780px;
+  margin: 1.5rem auto 2.5rem;
+  padding: 2.4rem 2rem 1.6rem;
+  text-align: center;
+  background: var(--asphalt-light);
+  border: 1px solid var(--asphalt-border);
+  border-top: 3px solid var(--amber);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.info-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  min-height: 250px; /* réserve l'espace pour éviter un décalage à chaque slide */
+}
+
+.info-slide-icon-wrap {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(242, 166, 61, 0.1);
+  border: 1px solid rgba(242, 166, 61, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-slide-icon {
+  width: 36px;
+  height: 36px;
+  color: var(--amber);
+}
+
+.info-slide-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.info-slide-desc {
+  color: var(--chrome);
+  font-size: 1.08rem;
+  line-height: 1.6;
+  max-width: 54ch;
+  margin: 0;
+}
+
+.info-more {
+  background: none;
+  border: none;
+  padding: 0.2rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--amber);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.info-more:hover {
+  color: var(--amber-bright);
+}
+
+.info-slide-details {
+  text-align: left;
+  max-width: 54ch;
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--chrome);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.info-slide-details li + li {
+  margin-top: 0.45rem;
+}
+
+.info-slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 2px dashed var(--asphalt-border); /* clin d'œil aux cartes "ticket" du catalogue */
+}
+
+.info-nav {
+  background: transparent;
+  border: 1px solid var(--asphalt-border);
+  color: var(--paper);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-nav:hover {
+  border-color: var(--chrome-dim);
+}
+
+.info-dots {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.info-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--asphalt-border);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.info-dot.active {
+  background: var(--amber);
+}
+
+.info-slider-counter {
+  display: block;
+  margin-top: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--chrome-dim);
+}
 /* ---------- Filtres ---------- */
 
 .filters {
@@ -958,6 +1099,15 @@ a {
 }
 
 @media (max-width: 480px) {
+  .info-slider {
+    padding: 2rem 1.2rem 1.4rem;
+  }
+  .info-slide {
+    min-height: 300px;
+  }
+  .info-slide-title {
+    font-size: 1.35rem;
+  }
   .car-specs {
     grid-template-columns: repeat(2, 1fr);
   }

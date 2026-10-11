@@ -5,6 +5,7 @@ import { attachGalleries } from "./data/gallery";
 import { createHeader } from "./components/header";
 import { createHero, updateHeroStrip } from "./components/hero";
 import { createFilters } from "./components/filters";
+import { createInfoSlider } from "./components/infoSlider";
 import { createCarCard } from "./components/carCard";
 import { createFooter } from "./components/footer";
 
@@ -28,6 +29,8 @@ async function init(): Promise<void> {
   // catalogue charge. Seule la zone catalogue montre un spinner.
   const heroSection = createHero([]);
   main.appendChild(heroSection);
+
+  main.appendChild(createInfoSlider());
 
   const catalogueZone = document.createElement("div");
   catalogueZone.innerHTML = `
